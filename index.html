@@ -2,66 +2,107 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>JS Drum Kit</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Nacho Libre Soundboard</title>
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-	<div class="keys">
-		<div data-key="65" class="key">
-			<kbd>A</kbd>
-			<span class="sound">clap</span>
-		</div>
-		<div data-key="83" class="key">
-			<kbd>S</kbd>
-			<span class="sound">hihat</span>
-		</div>
-		<div data-key="68" class="key">
-			<kbd>D</kbd>
-			<span class="sound">kick</span>
-		</div>
-		<div data-key="70" class="key">
-			<kbd>F</kbd>
-			<span class="sound">openhat</span>
-		</div>
-		<div data-key="71" class="key">
-			<kbd>G</kbd>
-			<span class="sound">boom</span>
-		</div>
-		<div data-key="72" class="key">
-			<kbd>H</kbd>
-			<span class="sound">ride</span>
-		</div>
-		<div data-key="74" class="key">
-			<kbd>J</kbd>
-			<span class="sound">snare</span>
-		</div>
-		<div data-key="75" class="key">
-			<kbd>K</kbd>
-			<span class="sound">tom</span>
-		</div>
-		<div data-key="76" class="key">
-			<kbd>L</kbd>
-			<span class="sound">tink</span>
-		</div>
-	</div>
+	<h1>Nacho Libre <span>Soundboard</span></h1>
 
-	<audio data-key="65" src="sounds/clap.wav"></audio>
-	<audio data-key="83" src="sounds/hihat.wav"></audio>
-	<audio data-key="68" src="sounds/kick.wav"></audio>
-	<audio data-key="70" src="sounds/openhat.wav"></audio>
-	<audio data-key="71" src="sounds/boom.wav"></audio>
-	<audio data-key="72" src="sounds/ride.wav"></audio>
-	<audio data-key="74" src="sounds/snare.wav"></audio>
-	<audio data-key="75" src="sounds/tom.wav"></audio>
-	<audio data-key="76" src="sounds/tink.wav"></audio>
+	<div class="keys"></div>
+
+	<div class="audios"></div>
 
 <script>
 
+	const key_list = 'q w e r t y u i o p a s d f g h j k l z x c v b n m Q W E R T Y U I O P A S D F G H J K L Z X C V B N M'.split( ' ' );
+
+	const sound_list = [
+		'sounds/a_real_douche.mp3',
+		'sounds/about_the_gospel.mp3',
+		'sounds/anaconda_squeeze.mp3',
+		'sounds/convert_each_other.mp3',
+		'sounds/crazy_lady.mp3',
+		'sounds/dang_exciting.mp3',
+		'sounds/diarrhea_since_easters.mp3',
+		'sounds/dont_be_crazy.mp3',
+		'sounds/fancy_ladies.mp3',
+		'sounds/fantastic.mp3',
+		'sounds/floozy.mp3',
+		'sounds/focus_on_my_boots.mp3',
+		'sounds/for_some_toast.mp3',
+		'sounds/fun_to_wrestle.mp3',
+		'sounds/get_that_corn.mp3',
+		'sounds/go_away.mp3',
+		'sounds/how_did_you_find_me.mp3',
+		'sounds/i_smell_cookies.mp3',
+		'sounds/i_wanna_win.mp3',
+		'sounds/it_was_stinky.mp3',
+		'sounds/its_the_best.mp3',
+		'sounds/let_go_my_blouse.mp3',
+		'sounds/like_a_fool.mp3',
+		'sounds/listen_to_me.mp3',
+		'sounds/me_no_come_on.mp3',
+		'sounds/messed_with_the_wrong_guy.mp3',
+		'sounds/my_favorite.mp3',
+		'sounds/my_life_is_good.mp3',
+		'sounds/nachoooo.mp3',
+		'sounds/nipple_twist.mp3',
+		'sounds/nucleus.mp3',
+		'sounds/pile_drive_to_the_face.mp3',
+		'sounds/punch_to_the_face.mp3',
+		'sounds/read_some_books.mp3',
+		'sounds/really_good.mp3',
+		'sounds/recreation_clothes.mp3',
+		'sounds/salvation_and_stuff.mp3',
+		'sounds/say_it_again_to_my_face.mp3',
+		'sounds/stretchy_pants.mp3',
+		'sounds/sucks_to_be_me.mp3',
+		'sounds/take_it_easy.mp3',
+		'sounds/taste_of_the_glory.mp3',
+		'sounds/that_one_time.mp3',
+		'sounds/the_lords_chips.mp3',
+		'sounds/the_nitty_gritty.mp3',
+		'sounds/took_you_so_long.mp3',
+		'sounds/what_did_you_just_say.mp3',
+		'sounds/what_i_do.mp3',
+		'sounds/wrestle_your_neighbor.mp3',
+		'sounds/wrong_idea.mp3'
+	];
+
+	function addKeys() {
+		const new_key_list = key_list.slice( 0, sound_list.length );
+		const regexp = /sounds\/(.*)\.mp3/;
+		const html = new_key_list.map( function( key, index ) {
+			const sound = sound_list[ index ];
+			let name = sound.match( regexp )[1] || '';
+			name = name.replace( /_/g, ' ' );
+			return `
+				<div data-key="${key}" class="key">
+					<kbd>${key}</kbd>
+					<span class="sound">${name}</span>
+				</div>
+			`;
+		} ).join( '' );
+		document.querySelector( '.keys' ).innerHTML = html;
+	}
+
+	function addSounds() {
+		const html = sound_list.map( function( sound, index ) {
+			const key = key_list[ index ];
+			return `
+				<audio data-key="${key}" src="${sound}"></audio>
+			`;
+		} ).join( '' );
+		document.querySelector( '.audios' ).innerHTML = html;
+	}
+
 	function playSound( e ) {
-		const audio = document.querySelector( `audio[data-key="${e.keyCode}"]` );
-		const key = document.querySelector( `.key[data-key="${e.keyCode}"]` );
+		const key = document.querySelector( `.key[data-key="${e.key}"]` );
+		const audio = document.querySelector( `audio[data-key="${e.key}"]` );
 		if ( ! audio ) return; // stop functon from running
+		audios.forEach( _audio => _audio.pause() ); // pause all
 		audio.currentTime = 0; // rewind to the start
 		audio.play();
 		key.classList.add( 'playing' );
@@ -72,10 +113,16 @@
 		this.classList.remove( 'playing' );
 	}
 
+	addKeys();
+	addSounds();
+
+	const audios = document.querySelectorAll( `audio` );
 	const keys = document.querySelectorAll( '.key' );
+
 	keys.forEach( key => key.addEventListener( 'transitionend', removeTransition ) );
-	keys.forEach( key => key.addEventListener( 'click', () => playSound( { keyCode: key.getAttribute( 'data-key' ) } ) ) );
+	keys.forEach( key => key.addEventListener( 'click', () => playSound( { key: key.getAttribute( 'data-key' ) } ) ) );
 	window.addEventListener( 'keydown', playSound );
+
 
 </script>
 

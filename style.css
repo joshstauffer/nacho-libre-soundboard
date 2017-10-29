@@ -1,5 +1,6 @@
 html {
-	background: url(http://i.imgur.com/b9r5sEL.jpg) center bottom;
+	background: url(bg.jpg) -600px center;
+	background-attachment: fixed;
 	background-size: cover;
 	font-size: 10px;
 }
@@ -11,31 +12,61 @@ html {
 	padding: 0;
 }
 
+body {
+	padding: 1rem 0 3rem;
+}
+
+h1 {
+	color: #fff;
+	font-size: 2rem;
+	font-size: 5vw;
+	margin: 2rem auto;
+	transform: rotate(1deg);
+	text-align: center;
+	text-shadow: .1rem .1rem #c31a20, 
+					.2rem .2rem #c31a20, 
+					.3rem .3rem #c31a20, 
+					.4rem .4rem #c31a20, 
+					.5rem .5rem #c31a20, 
+					.6rem .6rem #c31a20;
+	text-transform: uppercase;
+	width: 90%;
+}
+
+h1 span {
+	display: block;
+	font-size: 60%;
+}
+
 .keys {
-	align-items: center;
 	display: flex;
 	flex: 1;
+	flex-wrap: wrap;
 	justify-content: center;
 	min-height: 100vh;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 740px;
+	transform: rotate(-.5deg);
 }
 
 .key {
-	background: rgba(0,0,0,0.4);
+	border: .4rem solid rgba(255,255,255,.3);
 	border-radius: .5rem;
-	border: .4rem solid #000;
 	color: #fff;
+	cursor: pointer;
 	font-size: 1.5rem;
 	margin: 1rem;
 	padding: 1rem .5rem;
 	text-align: center;
-	text-shadow: 0 0 .5rem #000;
+	text-shadow: 0 0 1rem rgba(0,0,0,.2);
 	transition: all .07s;
 	width: 10rem;
 }
 
 .playing {
-	border-color: #0cf;
-	box-shadow: 0 0 1rem #0cf;
+	border-color: #fff;
+	box-shadow: 0 0 1rem #fff;
 	transform: scale(1.1);
 }
 
@@ -45,8 +76,8 @@ kbd {
 }
 
 .sound {
-	color: #0cf;
-	font-size: 1.2rem;
+	color: rgba(255,255,255,.8);
+	font-size: 1rem;
 	letter-spacing: .1rem;
 	text-transform: uppercase;
 }
