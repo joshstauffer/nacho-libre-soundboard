@@ -1,15 +1,17 @@
 html {
-	background-attachment: fixed;
 	background-color: #50c2dd;
 	background-image: url(bg.jpg);
-	background-position: center top;
-	background-size: cover;
+	background-position: center 130px;
+	background-repeat: no-repeat;
+	background-size: 600px;
 	font-size: 10px;
 }
 
 @media (min-width: 768px) {
 	html {
-		background-position: -600px center;
+		background-attachment: fixed;
+		background-position: center top;
+		background-size: cover;
 	}
 }
 
